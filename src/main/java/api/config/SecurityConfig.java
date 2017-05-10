@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String ADMIN = "ADMIN";
 	private static final String USER = "USER";
-	
+
 	@Autowired
 	DataSource dataSource;
 
@@ -34,11 +34,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/private/*").hasRole(USER)
+		.antMatchers("/api/**").hasRole(USER)
 		.antMatchers("/admin/*").hasRole(ADMIN)
-		.anyRequest().permitAll()
+		.antMatchers("/login", "/bower_components/**").permitAll()
+//		.anyRequest().authenticated()
 		.and()
-		.formLogin().and()
-		.csrf();
+		.formLogin().loginPage("/#!/login")
+		.defaultSuccessUrl("/", false)
+		.and()
+		.exceptionHandling()
+		.accessDeniedPage("/error")
+		.and()
+		.csrf().disable();
 
 	}
 

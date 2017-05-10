@@ -1,0 +1,11 @@
+.messageSuccess {
+	color: #00a51e;
+}
+
+.messageError {
+	color: #CB0D10;
+}
+
+.spaceFields {
+	margin-bottom: 5px;
+}

@@ -1,0 +1,86 @@
+<md-card flex-gt-sm="50" flex="100">
+<md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex"><h2>User Form</h2>
+
+    </div>
+</md-toolbar>
+
+<!-- Voltar -->
+<section layout="row" layout-sm="column" layout-wrap>
+<md-button class="md-raised" ng-href="#!/users">
+	<md-icon aria-label="Back" class="material-icons">arrow_back</md-icon>
+	Voltar
+</md-button>
+</section>
+
+<md-card-title>
+  <md-card-title-text>
+    <span class="md-headline">Editar Usuário</span>
+    <span class="md-subhead"><h5><b>* Campos Obrigatórios</b></h5></span>
+  </md-card-title-text>
+</md-card-title>
+
+<md-card-content>
+
+	<div ng-show="messageSuccess != null" class="messageSuccess">
+			 <b layout="row" layout-align="center center" class="md-padding">
+	      {{messageSuccess}} Sucesso!
+	     </b>
+	</div>
+
+  <div ng-messages="userForm.username.$error">
+     <div ng-message="required" ng-show="userForm.username.$dirty" class="messageError">
+       <b layout="row" layout-align="center center" class="md-padding">
+          Por favor, preencha o campo Nome!
+      </b>
+     </div>
+  </div>
+
+<form name="userForm">
+
+    <label for="userid">Código: </label><b ng-bind="userSelected.id" name="userid"></b>
+    <div layout-gt-xs="row">
+
+    <md-input-container flex-gt-xs>
+			<label>Nome</label>
+			<input ng-model="userSelected.name" md-placeholder="Nome"	ng-required="true" name="username">	
+		</md-input-container>
+
+    </div>
+
+    <div layout-gt-xs="row">
+      <md-input-container flex-gt-xs>
+          <label>Data Nascimento</label>
+          <md-datepicker  aria-label="Date of Birth" ng-model="userSelected.dateOfBirth"
+           name="dateOfBirth" md-open-on-focus></md-datepicker>
+      </md-input-container>
+    </div>
+
+    <div layout-gt-xs="row">
+        <md-input-container flex-gt-xs>
+		
+		  <label>Selecione o Sexo</label>
+         <md-select ng-model="userSelected.gender">
+        	<md-option><em>Selecione o Sexo</em></md-option>	       
+        	<md-option value="F">Feminino</md-option>
+			<md-option value="M">Masculino</md-option>
+             
+         </md-select>
+       </md-input-container>
+    </div>
+
+    <!-- Botao Cadastrar -->
+    <md-card-actions layout="row" layout-align="end center">
+	  <md-button class="md-raised md-primary md-block" ng-click="updateUser(userSelected)"
+		ng-disabled="userForm.$invalid">
+	      <md-icon aria-label="Editar" class="material-icons">done</md-icon>
+	      Salvar
+	  </md-button>
+  </md-card-actions>
+</form>
+ </md-card-content>
+
+</md-card>
+
+	

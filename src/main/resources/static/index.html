@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="userApp">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="User APP to User Server">
+
+	<title>User App</title>
+
+	<!-- style sheet -->
+	<link rel="stylesheet" href="lib/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="lib/angular-1.6.1/angular-material.min.css">
+
+	<!-- module -->
+	<script src="lib/angular-1.6.1/angular.min.js"></script>
+	<script src="lib/angular-1.6.1/angular-aria.min.js"></script>
+	<script src="lib/angular-1.6.1/angular-route.min.js"></script>
+	<script src="lib/angular-1.6.1/angular-animate.min.js"></script>
+	<script src="lib/angular-1.6.1/angular-material.min.js"></script>
+	<script src="lib/angular-1.6.1/angular-messages.min.js"></script>
+	<script src="lib/angular-1.6.1/angular-locale_pt-br.js"></script>
+	<script src="lib/moment/min/moment.min.js"></script>
+	<script src="lib/angular-material-data-table/dist/md-data-table.min.js"></script>
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body ng-cloak>
+
+<!-- Tela cheia: "container-fluid" -->
+<div class="container-fluid">	
+	
+	<md-content>
+		<div layout="row" layout-align="center center" ng-view></div>
+	</md-content>
+
+</div>
+
+</body>
+
+<link rel="stylesheet" href="css/style.css">
+
+<script src="js/app.js"></script>
+
+<script src="js/config/routeConfig.js"></script>
+<script src="js/config/interceptorConfig.js"></script>
+
+<script src="js/controllers/usersCtrl.js"></script>
+<script src="js/controllers/usersCtrl2.js"></script>
+
+<script src="js/controllers/userNewCtrl.js"></script>
+<script src="js/controllers/userSelectedCtrl.js"></script>
+<script src="js/controllers/authCtrl.js"></script>
+
+<script src="js/filters/nameSizeFilter.js"></script>
+<script src="js/filters/dateFormatFilter.js"></script>
+
+<script src="js/interceptors/errorInterceptors.js"></script>
+
+<script src="js/services/userAppService.js"></script>
+
+<script src="js/values/configValue.js"></script>
+
+</html>

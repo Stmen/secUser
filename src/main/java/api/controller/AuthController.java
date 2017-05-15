@@ -22,7 +22,7 @@ public class AuthController {
 	public ResponseEntity<?> getMe(HttpServletRequest request, 
 			Principal user) {
 	 	try {
-	 		System.out.println("AQUUUI "+ user.toString());
+	 		System.out.println("Usuário Logado: "+ user.getName());
 	 		return new ResponseEntity<Principal>(user, HttpStatus.OK);
 	 		
 	 	} catch (Exception e) {

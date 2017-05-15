@@ -1,14 +1,8 @@
-angular.module("userApp").controller("usersCtrl", function ($scope, usersAPI){
+angular.module("userApp").controller("usersCtrl", function ($scope, $rootScope, $location, $http, usersAPI){
 	
 	$scope.app = "User App";
 	$scope.users = [];
 	$scope.selected = [];
-
-	$scope.query = {
-    	order: 'name',
-    	limit: 5,
-    	page: 1
-  	};
 
   	function success(users) {
     	$scope.users = users;
@@ -29,5 +23,12 @@ angular.module("userApp").controller("usersCtrl", function ($scope, usersAPI){
 	};
 
 	allUsers();
+	
+	$scope.sair = function() {
+		  $http.post('logout', {}).finally(function() {
+		    $rootScope.authenticated = false;
+		    $location.path("/login");
+		  });
+	};
 	
 });

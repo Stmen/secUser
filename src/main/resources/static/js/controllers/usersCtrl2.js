@@ -46,4 +46,11 @@ angular.module("userApp").controller("usersCtrl2", function ($scope, usersAPI){
 
 	allUsers();
 	
+	$scope.sair = function() {
+		  $http.post('logout', {}).finally(function() {
+		    $rootScope.authenticated = false;
+		    $location.path("/");
+		  });
+	};
+	
 });

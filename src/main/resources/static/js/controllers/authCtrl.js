@@ -1,5 +1,6 @@
 angular.module("userApp").controller("authCtrl", function($scope, $rootScope, $http, $location) {
-
+	
+	$scope.credentials = {};
 	$scope.login = function(credentials) {
 
 		var headers = credentials ? {authorization : "Basic "
@@ -11,11 +12,18 @@ angular.module("userApp").controller("authCtrl", function($scope, $rootScope, $h
 				$rootScope.authenticated = true;
 				$location.path("/users");
 			} else {
-				$location.path("/login");
+				console.log("Aquuui");
+				$scope.errorMessage = "Falha na autenticação!!";
 				$rootScope.authenticated = false;
-				$scope.error = true;
 			}
 		});
+	};
+	
+	$scope.sair = function() {
+		  $http.post('logout', {}).finally(function() {
+		    $rootScope.authenticated = false;
+		    $location.path("/");
+		  });
 	};
 
 });

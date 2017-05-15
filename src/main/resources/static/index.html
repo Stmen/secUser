@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="userApp">
+<html lang="pt-BR" ng-app="userApp">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,38 +8,36 @@
 
 	<title>User App</title>
 
-	<!-- style sheet -->
-	<link rel="stylesheet" href="lib/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="lib/angular-1.6.1/angular-material.min.css">
-
-	<!-- module -->
-	<script src="lib/angular-1.6.1/angular.min.js"></script>
-	<script src="lib/angular-1.6.1/angular-aria.min.js"></script>
-	<script src="lib/angular-1.6.1/angular-route.min.js"></script>
-	<script src="lib/angular-1.6.1/angular-animate.min.js"></script>
-	<script src="lib/angular-1.6.1/angular-material.min.js"></script>
-	<script src="lib/angular-1.6.1/angular-messages.min.js"></script>
-	<script src="lib/angular-1.6.1/angular-locale_pt-br.js"></script>
-	<script src="lib/moment/min/moment.min.js"></script>
-	<script src="lib/angular-material-data-table/dist/md-data-table.min.js"></script>
-
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-messages/angular-messages.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/angular-locale-pt-br/angular-locale_pt-br.js"></script>
 
 </head>
-<body ng-cloak>
+<body>
 
 <!-- Tela cheia: "container-fluid" -->
-<div class="container-fluid">	
-	
-	<md-content>
-		<div layout="row" layout-align="center center" ng-view></div>
-	</md-content>
+<div class="container">
 
+	<!-- ADD HEADER / MENU -->
+
+	<div class="panel panel-default">		
+
+		<div  class="panel-body">
+			<!-- View Table -->
+			<div ng-view></div>
+		</div>
+	</div>
+
+	<!-- ADD FOOTER -->
 </div>
 
 </body>
-
-<link rel="stylesheet" href="css/style.css">
 
 <script src="js/app.js"></script>
 

@@ -1,89 +1,73 @@
+<h3 ng-bind="app"></h3>
+<hr />
+<!-- Messagens -->
+<div ng-show="messageSuccess != null" class="alert alert-success alert-dismissable" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+		<span aria-hidden="true">&times;</span></button>
+		{{messageSuccess}} <strong>Sucesso!</strong>
+</div>
 
-<md-card flex-gt-sm="50" flex="100">
-<md-toolbar class="md-primary">
-    <div class="md-toolbar-tools">
-      <h2 class="md-flex" ng-bind="app"></h2>
-     </div>
-</md-toolbar>
-<md-card-title>
-	<md-button class="md-raised md-primary" ng-href="#!/newUser">		
-		<md-icon aria-label="Add" class="material-icons">add</md-icon>
-		Novo 
-	</md-button>
+<div ng-show="messageError != null" class="alert alert-danger alert-dismissable" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+		<span aria-hidden="true">&times;</span></button>
+		{{messageError}} <strong>:(</strong>
+</div>
+
+<!-- Botoes Menu -->		
+<div class="spaceFields">
 	
-</md-card-title>
-
-<md-card-content>	
-
-	<md-input-container class="md-icon-float md-block" class="spaceFields">
-		<md-icon aria-label="Find" class="material-icons">search</md-icon>
-		<input type="text" ng-model="campoBusca" placeholder="Pesquisar Nome">
-	</md-input-container>
+	<a class="btn btn-primary" href="#!/newUser">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
+	 Novo 
+	</a>		
 	
-	<md-table-container>
-	  <table md-table md-progress="promise">
-	      <thead md-head md-order="query.order">
-	      <tr md-row>
-	       <th md-column>ID</th>
-	        <th md-column>Nome</th>
-	        <th md-column>Data de Nascimento</th>
-	        <th md-column>Sexo</th>
-	        <th md-column>Ações</th>
-	      </tr>
-	      </thead>
-	    <tbody md-body>
-	      <tr md-row md-select="user" md-select-id="name" md-auto-select 
-	      	ng-repeat="user in users | filter: {name: campoBusca} track by user.id">
-	        <td md-cell>{{user.id}}</td>
-	        <td md-cell>{{user.name}}</td>
-	        <td md-cell>{{user.dateOfBirth}}</td>
-	        <td md-cell>{{user.gender}}</td>
-	        <td md-cell>
-        	 <md-menu>
-	 	 <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button">
-	 	 	
-	 		 <md-icon aria-label="User Menu" class="material-icons md-48">view_headline</md-icon>
-	 	 </md-button>	        
-	  
-	      <md-menu-content>
+	<button class="btn btn-danger" ng-click="deleteUser(users)"
+		ng-disabled="!hasUserSelected">
+		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	 Remover
+	</button>			
 
-	        <md-menu-item>
-	         	 <md-button ng-href="#!/detailUser/{{user.id}}">
-	         	 <md-icon aria-label="Detail" class="material-icons">forward</md-icon>
-			     	Detalhes
-	      		 </md-button>
-	        </md-menu-item>
+</div>
 
-	        <md-menu-item>
-	        	<md-button ng-href="#!/editUser/{{user.id}}">
-	        	<md-icon aria-label="Edit" class="material-icons">edit</md-icon>   
-	       			Editar
-	       		</md-button>          
-	        </md-menu-item>
+<!-- Campo Pesquisa -->
+<input class="form-control spaceFields" type="text" ng-model="campoBusca" placeholder="Pesquisar Nome">
 
-	        <md-menu-item>
-	        	<md-button ng-href="#!/removeUser/{{user.id}}">
-	        	<md-icon aria-label="Remove" class="material-icons">clear</md-icon>   
-	       			Remover
-	       		</md-button>          
-	        </md-menu-item>
-	       
-	      </md-menu-content>
+<!-- Tabela -->
+<div class="table-responsive">
 
-		</md-menu>  
+	<table id="userTable" ng-show="users.length > 0" class="table table-condensed">
+		
+		<thead class="tableHeader">
+			<tr>
+				
+				<th></th>
+				<th>Código</th>
+				<th>Nome</th>
+				<th>Data Nascimento</th>
+				<th>Sexo</th>
+				
+			</tr>
+		</thead>
+		<!-- track by melhora o desempenho: evita recarregamento dos elementos -->
+		<tr ng-repeat="user in users | filter: {name: campoBusca} track by user.id" 
+			ng-class="{'setUserSelected': user.selected}" ng-click="checkUserSelected(user)">
+			
+			<td>				
+				<a class="btn btn-success" href="#!/detailUser/{{user.id}}">			
+					<span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>	 
+				</a>
+				
+				<a class="btn btn-info" href="#!/editUser/{{user.id}}">
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+			 	</a>
 			</td>
-	      </tr>
-	    </tbody>
-	    <tfoot md-foot>
-		  <tr md-row>
-		    <td md-cell></td>
-		    <td md-cell><strong>Total: </strong>{{users.length}}</td>
-		    <td md-cell colspan="6"></td>
-		  </tr>
-	</tfoot>
-	  </table>
-	</md-table-container>
+			<!-- os :: melhora o desempenho (diminui os watchers) -->
+			<td><output type="text" ng-bind="::user.id"></output></td>
+			<td><output type="text" ng-bind="::user.name | nameSize:20"></output></td>
+			<td><output type="text" ng-bind="::user.dateOfBirth |dateFormat"></output></td>
+			<td><output type="text" ng-bind="::user.gender"></output></td>
 
-</md-card-content>
+		</tr>
+	</table>
+</div>
 
-</md-card>

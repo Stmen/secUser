@@ -2,7 +2,7 @@ angular.module("userApp").config(function($routeProvider) {
 	
 	$routeProvider.when("/login", {
 		templateUrl: "view/login.html",
-		controller: "loginCtrl"		
+		controller: "authCtrl"		
 	});
 	
 	$routeProvider.when("/users2", {

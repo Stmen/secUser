@@ -16,8 +16,4 @@ angular.module("userApp").controller("userNewCtrl", function ($scope, usersAPI){
 		});
 		
 	};
-}).config(function($mdDateLocaleProvider) {
-  $mdDateLocaleProvider.formatDate = function(date) {
-    return moment(date).format('DD/MM/YYYY');
-  };
 });

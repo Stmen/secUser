@@ -1,48 +1,21 @@
-<md-card flex-gt-sm="50" flex="100">
-<md-toolbar class="md-primary">
-    <div class="md-toolbar-tools">
-      <h2 class="md-flex"><h2>User Details</h2>
-
-    </div>
-</md-toolbar>
+<h3>User Details</h3>	
+<hr />
 
 <!-- Voltar -->
-<section layout="row" layout-sm="column" layout-wrap>
-<md-button class="md-raised" ng-href="#!/users">
-	<md-icon aria-label="Back" class="material-icons">arrow_back</md-icon>
-	Voltar
-</md-button>
-</section>
+<a class="btn btn-default" href="#!/users">
+	<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+ Voltar
+</a>
 
-<md-card-title>
-  <md-card-title-text>
-    <span class="md-headline">Detalhes Usuário</span>    
-  </md-card-title-text>
-</md-card-title>
+<div  class="panel-body">
 
-<md-card-content>
+	<span><b>Código:</b> <p ng-bind="userSelected.id"></p></span>
 
-  	<div layout-gt-xs="row">  	
-    	<label for="userid">Código: </label><b ng-bind="userSelected.id" name="userid"></b>
-    </div>
+	<span><b>Nome:</b> <p ng-bind="userSelected.name"></p></span>
 
-    <div layout-gt-xs="row">   	
-   		<label>Nome:</label>
-		<span ng-bind="userSelected.name"></span>
-    </div>
+	<span><b>Data Nascimento:</b> <p ng-bind="userSelected.dateOfBirth"></p></span>
 
-    <div layout-gt-xs="row">   	
-   		<label>Data Nascimento: </label>
-		<span ng-bind="userSelected.dateOfBirth"></span>
-    </div>
+	<span><b>Sexo:</b> <p ng-bind="userSelected.gender"></p></span>
 
-    <div layout-gt-xs="row">   	
-   		<label>Sexo: </label>
-		<span ng-bind="userSelected.gender"></span>
-    </div>
 
- </md-card-content>
-
-</md-card>
-
-	
+</div>

@@ -1,81 +1,66 @@
-<md-card flex-gt-sm="50" flex="100">
-<md-toolbar class="md-primary">
-    <div class="md-toolbar-tools">
-      <h2 class="md-flex"><h2>User Form</h2>
+<h3>User Form</h3>	
 
-    </div>
-</md-toolbar>
-
+<hr />
 <!-- Voltar -->
-<section layout="row" layout-sm="column" layout-wrap>
-<md-button class="md-raised" ng-href="#!/users">
-	<md-icon aria-label="Back" class="material-icons">arrow_back</md-icon>
-	Voltar
-</md-button>
-</section>
+<a class="btn btn-default" href="#!/users">
+	<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+ Voltar
+</a>
 
-<md-card-title>
-  <md-card-title-text>
-    <span class="md-headline">Novo Usuário</span>
-    <span class="md-subhead"><h5><b>* Campos Obrigatórios</b></h5></span>
-  </md-card-title-text>
-</md-card-title>
+<!-- Messagens -->
+<div ng-show="messageSuccess != null" class="alert alert-success alert-dismissable" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+		<span aria-hidden="true">&times;</span></button>
+		{{messageSuccess}} <strong>Sucesso!</strong>
+</div>
 
-<md-card-content>
-
-	<div ng-show="messageSuccess != null" class="messageSuccess">
-			 <b layout="row" layout-align="center center" class="md-padding">
-	      {{messageSuccess}} Sucesso!
-	     </b>
-	</div>
-
-  <div ng-messages="userForm.username.$error">
-     <div ng-message="required" ng-show="userForm.username.$dirty" class="messageError">
-       <b layout="row" layout-align="center center" class="md-padding">
-          Por favor, preencha o campo Nome!
-      </b>
-     </div>
-  </div>
+<!-- Formulario -->
+<h5><b>* Campos Obrigatórios</b></h5>
 
 <form name="userForm">
+	<label for="username">Nome</label>
+	<input class="form-control spaceFields" type="text" ng-model="user.name"
+		ng-required="true" name="username" placeholder="Nome*">
 
-    <div layout-gt-xs="row">
-    
-    <md-input-container flex-gt-xs>
-			<label>Nome</label>
-			<input ng-model="user.name" md-placeholder="Nome"	ng-required="true" name="username">	
-		</md-input-container>
+	<label for="dateOfBirth">Data Nascimento</label>
+	<input class="form-control spaceFields" type="text" ng-model="user.dateOfBirth" name="dateOfBirth"
+		ng-pattern="/^\d{2}-\d{2}-\d{4}$/" ng-required="true" placeholder="Data Nascimento* dd-MM-yyyy">
+	
+	<label for="gender">Sexo</label>
+	<select name="gender" class="form-control spaceFields" ng-model="user.gender">
+			
+		<option value="">Selecione o sexo</option>
+		<option value="F">Feminino</option>
+		<option value="M">Masculino</option>
 
-    </div>
+	</select>	
 
-    <div layout-gt-xs="row">
-      <p>Data Nascimento</p>        
-    </div>
-    <div layout-gt-xs="row">
-          <md-datepicker  aria-label="Find"  ng-model="user.dateOfBirth" md-open-on-focus>
-          </md-datepicker>
-    </div>
+</form>	
+	
+	<!-- Mensagens -->
+<div ng-messages="userForm.username.$error">
+	
+	<div ng-message="required" ng-show="userForm.username.$dirty" class="alert alert-danger">
+		Por favor, preencha o campo Nome!
+	</div>
+</div>
 
-    <div layout-gt-xs="row">
-     <p>Selecione o Sexo: </p>
-     </div> 
-     <div layout-gt-xs="row">
-       <md-radio-group ng-model="user.gender">
-      	<md-radio-button value="F">Feminino</md-radio-button>
-  			<md-radio-button value="M">Masculino</md-radio-button>
-       </md-radio-group>
+<div ng-messages="userForm.dateOfBirth.$error">
+	
+	<div ng-message="required" ng-show="userForm.dateOfBirth.$dirty" class="alert alert-danger">
+		Por favor, preencha o campo Data de Nascimento!
+	</div>
+	<div ng-message="pattern" ng-show="userForm.dateOfBirth.$dirty" class="alert alert-danger">
+		Campo Data Nascimento fora do padrão. Exemplo: 01-01-2001
+	</div>
+</div>
 
-    </div>
 
-    <!-- Botao Cadastrar -->
-    <md-card-actions layout="row" layout-align="end center">
-	  <md-button class="md-raised md-primary md-block" ng-click="newUser(user)"
-	      ng-disabled="userForm.$invalid">
-	      <md-icon aria-label="Cadastrar" class="material-icons">done</md-icon>
-	      Salvar
-	  </md-button>
-  </md-card-actions>
-</form>
- </md-card-content>
+<!-- Botao Cadastrar -->
+<button class="btn btn-primary btn-block spaceFields" ng-click="newUser(user)"
+	ng-disabled="userForm.$invalid">
+	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
+	Salvar 
+</button>
 
-</md-card>
+	

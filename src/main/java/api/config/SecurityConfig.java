@@ -33,11 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+		.antMatchers("/me", "/bower_components/**").permitAll()
 		.antMatchers("/private/*").hasRole(USER)
 		.antMatchers("/api/**").hasRole(USER)
 		.antMatchers("/admin/*").hasRole(ADMIN)
-		.antMatchers("/login", "/bower_components/**").permitAll()
-//		.anyRequest().authenticated()
 		.and()
 		.formLogin().loginPage("/#!/login")
 		.defaultSuccessUrl("/", false)

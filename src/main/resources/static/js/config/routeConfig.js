@@ -1,4 +1,4 @@
-angular.module("userApp").config(function($routeProvider) {
+angular.module("userApp").config(function($routeProvider, $httpProvider) {
 	
 	$routeProvider.when("/login", {
 		templateUrl: "view/login.html",
@@ -53,7 +53,6 @@ angular.module("userApp").config(function($routeProvider) {
 	$routeProvider.when("/error", {
 		templateUrl: "view/error.html"
 	});
-
 
 	$routeProvider.otherwise({
 		redirectTo: "/login"

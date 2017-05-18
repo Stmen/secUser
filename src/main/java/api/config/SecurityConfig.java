@@ -34,18 +34,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.httpBasic().and().authorizeRequests()
-		.antMatchers("/me", "/bower_components/**").permitAll()
-		.antMatchers("/private/*").hasRole(USER)
-		.antMatchers("/api/**").hasRole(USER)
-		.antMatchers("/admin/*").hasRole(ADMIN)
-//		.anyRequest().authenticated()
-		.and()
-		.formLogin().loginPage("/#!/login")
-//		.defaultSuccessUrl("/", false)
-		.and()
+		.antMatchers("/bower_components/**", "/view/login.html", "/view/error.html", "/").permitAll()
+		.anyRequest().authenticated()
+//		.antMatchers("/view/*").authenticated()
+//		.antMatchers("/api/*").authenticated()
+//		.antMatchers("/admin/*").hasRole(ADMIN)
+//		.and().formLogin().loginPage("/login")
+//		.defaultSuccessUrl("/users", false)
+		.and().logout()
 //		.exceptionHandling()
 //		.accessDeniedPage("/error")
-//		.and()
+		.and()
 		.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
 	}

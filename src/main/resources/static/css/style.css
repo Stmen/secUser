@@ -1,11 +1,18 @@
-.messageSuccess {
-	color: #00a51e;
+.setUserSelected {
+
+	background-color: lightgray;
+	font-weight: bold;
 }
 
-.messageError {
-	color: #CB0D10;
+.tableHeader {
+	background-color: lightblue;
 }
 
 .spaceFields {
 	margin-bottom: 5px;
+}
+
+.table-condensed tr:hover {
+    background-color: #ccc;
+    cursor: pointer;
 }

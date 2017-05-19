@@ -28,12 +28,13 @@ angular.module("userApp").controller("authCtrl", function($rootScope, $scope, $h
 		} : {};
 
 		$http.get("whoami", {headers : headers}).then(function(response) {
-			if (response.name) {
+			if (response.data.authenticated) {
 				$rootScope.authenticated = true;
 				console.log("Login OK");
 				$scope.errorMessage = false;
 				$location.path("/users");
 			} else {
+				$location.path("/login");
 				$rootScope.authenticated = false;
 				console.log("Login Error");
 				$scope.errorMessage = true;

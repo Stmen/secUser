@@ -3,6 +3,8 @@ angular.module("userApp").controller("usersCtrl", function ($scope, $rootScope, 
 	$scope.app = "User App";
 	$scope.users = [];
 	$scope.selected = [];
+	
+	console.log($rootScope.authenticated)
 
   	function success(users) {
     	$scope.users = users;

@@ -1,9 +1,12 @@
 package api.controller;
 
 import java.security.Principal;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
 	@RequestMapping("/whoami")
-	public Principal authentication(HttpServletRequest request, 
+	public ResponseEntity<?> authentication(HttpServletRequest request, 
 			Principal user) {
-
-		System.out.println("Usuário Logado: "+ user.getName());
-		return user;
+		if (null == user) {
+			System.out.println("Erro usuario");
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		System.out.println("Usuário Logado: "+ user.getName() + " em "+ new Date());
+		return new ResponseEntity<Principal>(user, HttpStatus.OK);
 	}
-
+	
 }

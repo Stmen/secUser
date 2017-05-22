@@ -17,10 +17,10 @@ public class AuthController {
 	public ResponseEntity<?> authentication(HttpServletRequest request, 
 			Principal user) {
 		if (null == user) {
-			System.out.println("Erro usuario");
+			System.err.println("*** Usuario nao existe!");
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-		System.out.println("Usuário Logado: "+ user.getName() + " em "+ new Date());
+		System.out.println("*** Usuário Logado: "+ user.getName() + " em "+ new Date());
 		return new ResponseEntity<Principal>(user, HttpStatus.OK);
 	}
 	

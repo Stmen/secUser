@@ -14,9 +14,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String ADMIN = "ADMIN";
-	private static final String USER = "USER";
-
 	@Autowired
 	DataSource dataSource;
 

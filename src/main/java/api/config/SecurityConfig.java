@@ -40,9 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin().loginPage("/#!/login")
 			.usernameParameter("username").passwordParameter("password")
 //			.and()
-//			.exceptionHandling().accessDeniedPage("/403")
+//			.exceptionHandling().accessDeniedPage("/")
 			.and()
-			.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+			.csrf().disable();
+//			csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 		}
 
 }

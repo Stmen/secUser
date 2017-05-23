@@ -1,11 +1,9 @@
-<div ng-show="authenticated">
-
 <div class="row">
-	<div class="col-sm-8">
+	<div class="col-xs-8 col-md-8" align="left">
 		<h3 ng-bind="app"></h3>
 	</div>
 	
-	<div class="col-sm-4" align="right">
+	<div class="col-xs-4 col-md-4" align="right">
 	<button class="btn btn-default" ng-click="sair()">
 			<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
 		 Sair
@@ -79,11 +77,9 @@
 			<!-- os :: melhora o desempenho (diminui os watchers) -->
 			<td><output type="text" ng-bind="::user.id"></output></td>
 			<td><output type="text" ng-bind="::user.name | nameSize:20"></output></td>
-			<td><output type="text" ng-bind="::user.dateOfBirth | dateFormat"></output></td>
+			<td><output type="text" ng-bind="::user.dateOfBirth | date: 'dd/MM/yyyy'"></output></td>
 			<td><output type="text" ng-bind="::user.gender"></output></td>
 
 		</tr>
 	</table>
-</div>
-
 </div>

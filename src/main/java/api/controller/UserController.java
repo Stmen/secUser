@@ -113,7 +113,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/{idUser}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8")
-	public ResponseEntity<?> putUser(HttpServletRequest request, @RequestBody String json,
+	public ResponseEntity<?> putUser(HttpServletRequest request, @RequestBody UserDetails userUpdated,
 			@PathVariable int idUser) {
 		
 	 	try {
@@ -123,7 +123,7 @@ public class UserController {
 	 			return new ResponseEntity<Error>(new Error(404, "Usuário não encontrado"), HttpStatus.NOT_FOUND); 
 	 		}
 
-	 		this.userDetailsService.persistUser(userDetails);
+	 		this.userDetailsService.persistUser(userUpdated);
 	 		
 	 		return new ResponseEntity<String>(HttpStatus.OK);
 	 		

@@ -9,12 +9,12 @@ angular.module("userApp").config(function($routeProvider, $httpProvider) {
 	
 	$routeProvider.when("/users2", {
 		templateUrl: "view/users2.html",
-		controller: "usersCtrl2"		
+		controller: "usersCtrl2"
 	});
 
 	$routeProvider.when("/users", {
 		templateUrl: "view/users.html",
-		controller: "usersCtrl"		
+		controller: "usersCtrl"
 	});
 
 	$routeProvider.when("/newUser", {

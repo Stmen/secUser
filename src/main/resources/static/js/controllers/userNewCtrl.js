@@ -1,8 +1,8 @@
 angular.module("userApp").controller("userNewCtrl", function ($scope, usersAPI){
 
 	$scope.newUser = function (user) {
-		var dataFormatada = user.dateOfBirth.getDay()+"/"+user.dateOfBirth.getMonth()+"/" +user.dateOfBirth.getFullYear();
-		console.log(dataFormatada);
+//		var dataFormatada = user.dateOfBirth.getDay()+"/"+user.dateOfBirth.getMonth()+"/" +user.dateOfBirth.getFullYear();
+//		console.log(dataFormatada);
 
 		usersAPI.postUser(user).then(function (response) {			
 			

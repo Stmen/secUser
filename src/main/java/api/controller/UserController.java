@@ -1,7 +1,6 @@
 package api.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,44 +17,38 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.dao.UserDAO;
 import api.model.Error;
-import api.model.User;
-import api.util.JsonParser;
+import api.model.UserDetails;
+import api.service.UserDetailsService;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 	
 	@Autowired
-	private UserDAO userDAO;
+	private UserDetailsService userDetailsService;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8")
 	public ResponseEntity<?> getUsers(HttpServletRequest request,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "gender", required = false) String gender,
-			@RequestParam(value = "dateBegin", required = false) String dateBegin,
-			@RequestParam(value = "dateEnd", required = false) String dateEnd) {
-		
-		List<User> users = new ArrayList<User>();
-		String source = request.getHeader("Referer");
-		String ip = request.getRemoteAddr();
+			@RequestParam(value = "name", required = false) String name) {
+	
+ 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+ 	    String name2 = auth.getName(); //get logged in username
+ 		System.out.println(name2);
+	
+ 	    Iterable<UserDetails> users = new ArrayList<UserDetails>();
+//		String source = request.getHeader("Referer");
+//		String ip = request.getRemoteAddr();
 	 	try {
 	 		if (name != null){
-	 			users = userDAO.findByName(name);
+//	 			UserDetails userDetails = userDetailsService.findUserByName(name);
+//	 			return new ResponseEntity<UserDetails>(userDetails, HttpStatus.OK);
 	 			
-	 		}else if (gender != null){
-	 			users = userDAO.findByGender(gender);
-	 			
-	 		}else if (dateBegin != null && dateEnd != null){
-	 			users = userDAO.findBy2DateOfBirth(dateBegin, dateEnd);
+	 		}else{
+	 			users = this.userDetailsService.getAll();
 	 			
 	 		}
-	 		else{
-	 			users = userDAO.getUsers();
-	 			
-	 		}
-	 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+	 		return new ResponseEntity<Iterable<UserDetails>>(users, HttpStatus.OK);
 	 		
 	 	} catch (Exception e) {
 	 		System.err.println(e.getMessage());
@@ -65,12 +60,16 @@ public class UserController {
 	public ResponseEntity<?> getUserByID(HttpServletRequest request, 
 			@PathVariable int idUser) {
 	 	try {
-	 		User user = userDAO.findByID(idUser);
+	 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	 	    String name = auth.getName(); //get logged in username
+	 		System.out.println(name);
+	 		
+	 		UserDetails user = this.userDetailsService.findByID(idUser);
 	 		if (user.getName() == null){
 	 			return new ResponseEntity<Error>(new Error(404, "Usuário não encontrado"), HttpStatus.NOT_FOUND); 
 	 		}
 	 		
-	 		return new ResponseEntity<User>(user, HttpStatus.OK);
+	 		return new ResponseEntity<UserDetails>(user, HttpStatus.OK);
 	 		
 	 	} catch (Exception e) {
 	 		System.err.println(e.getMessage());
@@ -79,13 +78,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8")
-	public ResponseEntity<?> postUser(HttpServletRequest request, @RequestBody String json) {
+	public ResponseEntity<?> postUser(HttpServletRequest request, @RequestBody UserDetails userDetails) {
 		
 	 	try {
-	 		JsonParser jsonParser = new JsonParser();
 	 		
-	 		User user = jsonParser.jsonToUser(json);
-	 		this.userDAO.addUser(user);
+	 		this.userDetailsService.persistUser(userDetails);
 	 		
 	 		return new ResponseEntity<String>(HttpStatus.OK);
 	 		
@@ -100,9 +97,9 @@ public class UserController {
 			@PathVariable int idUser) {
 	 	try {
 	 		
-	 		User user = this.userDAO.findByID(idUser);
+	 		UserDetails user = this.userDetailsService.findByID(idUser);
 	 		if (user.getName() != null){
-	 			this.userDAO.deleteUser(idUser);
+	 			this.userDetailsService.deleteUser(idUser);
 	 			return new ResponseEntity<String>(HttpStatus.OK);
 	 			
 	 		}
@@ -120,18 +117,13 @@ public class UserController {
 			@PathVariable int idUser) {
 		
 	 	try {
-	 		JsonParser jsonParser = new JsonParser();
 	 		
-	 		
-	 		User checkUser = this.userDAO.findByID(idUser);
-	 		if (checkUser.getName() == null){
+	 		UserDetails userDetails = this.userDetailsService.findByID(idUser);
+	 		if (userDetails.getName() == null){
 	 			return new ResponseEntity<Error>(new Error(404, "Usuário não encontrado"), HttpStatus.NOT_FOUND); 
 	 		}
-	 		
-	 		User userParser = jsonParser.jsonToUser(json);
-	 		userParser.setId(idUser);
-	 		
-	 		this.userDAO.updateUser(userParser);
+
+	 		this.userDetailsService.persistUser(userDetails);
 	 		
 	 		return new ResponseEntity<String>(HttpStatus.OK);
 	 		

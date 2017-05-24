@@ -1,20 +1,34 @@
 package api.model;
 
-import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.sql.Date;
 
-public class User {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="usersDetails")
+public class UserDetails {
 	
-	private int id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
 	
 	private String name;
 	
-	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date dateOfBirth;
 	
 	private String gender;
+	
+	private double weight;
 
+	public UserDetails(){
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -45,6 +59,14 @@ public class User {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
 	}
 
 	@Override

@@ -16,10 +16,6 @@ public class AuthController {
 	@RequestMapping("/whoami")
 	public ResponseEntity<?> authentication(HttpServletRequest request, 
 			Principal user) {
-		if (null == user) {
-			System.err.println("*** Usuario nao existe!");
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
 		System.out.println("*** Usuário Logado: "+ user.getName() + " em "+ new Date());
 		return new ResponseEntity<Principal>(user, HttpStatus.OK);
 	}

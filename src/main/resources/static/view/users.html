@@ -56,8 +56,9 @@
 				<th></th>
 				<th>Código</th>
 				<th>Nome</th>
-				<th>Data Nascimento</th>
+				<th>Data de Nascimento</th>
 				<th>Sexo</th>
+				<th>Peso (Kg)</th>
 				
 			</tr>
 		</thead>
@@ -79,6 +80,7 @@
 			<td><output type="text" ng-bind="::user.name | nameSize:20"></output></td>
 			<td><output type="text" ng-bind="::user.dateOfBirth | date: 'dd/MM/yyyy'"></output></td>
 			<td><output type="text" ng-bind="::user.gender"></output></td>
+			<td><output type="text" ng-bind="::user.weight | number:2"></output></td>
 
 		</tr>
 	</table>

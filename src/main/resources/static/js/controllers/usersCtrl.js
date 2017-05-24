@@ -22,10 +22,10 @@ angular.module("userApp").controller("usersCtrl", function ($scope, $rootScope, 
 		for (var i = users.length - 1; i >= 0; i--) {
 
 			if (users[i].selected) {
-				usernames += " '"+users[i].name +"' ";
+				usernames += " '"+ users[i].name +"' ";
 				usersAPI.deleteUser(users[i].id).then(function (response) {
 				
-				$scope.messageSuccess = "Usuário(s): "+ usernames +" removido(s) com"									
+				$scope.messageSuccess = "Usuário(s): "+ usernames +" removido(s) com";									
 			});			
 		}
 			

@@ -13,9 +13,10 @@
 
 	<span><b>Nome:</b> <p ng-bind="userSelected.name"></p></span>
 
-	<span><b>Data Nascimento:</b> <p ng-bind="userSelected.dateOfBirth"></p></span>
+	<span><b>Data de Nascimento:</b> <p ng-bind="userSelected.dateOfBirth | date: 'dd/MM/yyyy'"></p></span>
 
 	<span><b>Sexo:</b> <p ng-bind="userSelected.gender"></p></span>
-
-
+	
+	<span><b>Peso (Kg):</b> <p ng-bind="userSelected.weight | number:2"></p></span>
+	
 </div>

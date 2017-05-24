@@ -25,9 +25,9 @@
 	<input class="form-control spaceFields" type="text" ng-model="userSelected.name"
 		ng-required="true" name="username" placeholder="Nome*">
 
-	<label for="dateOfBirth">Data Nascimento</label>
+	<label for="dateOfBirth">Data de Nascimento</label>
 	<input class="form-control spaceFields" type="text" ng-model="userSelected.dateOfBirth" name="dateOfBirth"
-		ng-pattern="/^\d{2}-\d{2}-\d{4}$/" ng-required="true" placeholder="Data Nascimento* dd-MM-yyyy">
+		ng-required="true" placeholder="Data de Nascimento* DD/MM/AAAA" ui-date-mask>
 	
 	<label for="gender">Sexo</label>
 	<select name="gender" class="form-control spaceFields" ng-model="userSelected.gender">
@@ -36,7 +36,11 @@
 		<option value="F">Feminino</option>
 		<option value="M">Masculino</option>
 
-	</select>	
+	</select>
+	
+	<label for="weight">Peso (Kg)</label>
+	<input type="text" class="form-control spaceFields" name="weight" 
+		ng-model="userSelected.weight" ui-number-mask>
 
 </form>	
 	
@@ -52,9 +56,6 @@
 	
 	<div ng-message="required" ng-show="userForm.dateOfBirth.$dirty" class="alert alert-danger">
 		Por favor, preencha o campo Data de Nascimento!
-	</div>
-	<div ng-message="pattern" ng-show="userForm.dateOfBirth.$dirty" class="alert alert-danger">
-		Campo Data Nascimento fora do padrão. Exemplo: 01-01-2001
 	</div>
 </div>
 

@@ -1,1 +1,1 @@
-angular.module("userApp", ["ngMessages", "ngRoute"]);
+angular.module("userApp", ["ngMessages", "ngRoute", "ui.utils.masks"]);

@@ -21,10 +21,23 @@
 	<label for="username">Nome</label>
 	<input class="form-control spaceFields" type="text" ng-model="user.name"
 		ng-required="true" name="username" placeholder="Nome*">
+	
+	<div class="input-group date">
+		<label for="dateOfBirth">Data Nascimento</label>
+		<input class="form-control spaceFields" id='datetimepicker' type="text" ng-model="user.dateOfBirth" name="dateOfBirth"
+			ng-required="true" placeholder="Data de Nascimento* DD/MM/AAAA" />
 
-	<label for="dateOfBirth">Data Nascimento</label>
-	<input class="form-control spaceFields" type="text" ng-model="user.dateOfBirth" name="dateOfBirth"
-		ng-required="true" placeholder="Data de Nascimento* DD/MM/AAAA" ui-date-mask>
+        <span class="glyphicon glyphicon-calendar"></span>
+		
+		<script type="text/javascript">
+	            $(function () {
+	                $('#datetimepicker').datetimepicker({
+	                	locale: 'pt-br'
+	                });
+	            });
+		</script>
+	</div>
+		
 	
 	<label for="gender">Sexo</label>
 	<select name="gender" class="form-control spaceFields" ng-model="user.gender">
@@ -36,7 +49,7 @@
 	</select>
 	
 	<label for="weight">Peso</label>
-	<input type="text" class="form-control spaceFields" name="weight" 
+	<input type="text" class="form-control spaceFields currency" name="weight" 
 		ng-model="user.weight" ui-number-mask>
 
 </form>	
@@ -66,5 +79,3 @@
 	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
 	Salvar 
 </button>
-
-	

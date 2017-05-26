@@ -18,27 +18,26 @@
 
 <form name="userForm">
 
-	<label for="username">Nome</label>
+	<label for="username">Nome* </label>
 	<input class="form-control spaceFields" type="text" ng-model="user.name"
-		ng-required="true" name="username" placeholder="Nome*">
+		ng-required="true" name="username" placeholder="Nome*" />
 	
-	<div class="input-group date">
-		<label for="dateOfBirth">Data Nascimento</label>
-		<input class="form-control spaceFields" id='datetimepicker' type="text" ng-model="user.dateOfBirth" name="dateOfBirth"
-			ng-required="true" placeholder="Data de Nascimento* DD/MM/AAAA" />
-
-        <span class="glyphicon glyphicon-calendar"></span>
+	<label for="dateOfBirth">Data de Nascimento* </label>
+	<div class="row">
+        <div class="col-sm-12">
+           <div class="input-group spaceFields" datetimepicker ng-model="user.dateOfBirth" options="dateOptions">
+            <input class="form-control" type="text" name="dateOfBirth" placeholder="Data de Nascimento* DD/MM/AAAA" />
+                    <span class="input-group-addon">
+                       	 	<span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+    </div>
+    
+    <!-- Doesnt Work on Firefox :( -->
+    <label for="dateOfBirth">Data de Nascimento 2* </label>
+	 	<input type="date" class="form-control" ng-model="user.dateOfBirth" name="dateOfBirth" placeholder="Data de Nascimento* DD/MM/AAAA" />
 		
-		<script type="text/javascript">
-	            $(function () {
-	                $('#datetimepicker').datetimepicker({
-	                	locale: 'pt-br'
-	                });
-	            });
-		</script>
-	</div>
-		
-	
 	<label for="gender">Sexo</label>
 	<select name="gender" class="form-control spaceFields" ng-model="user.gender">
 			
@@ -49,8 +48,8 @@
 	</select>
 	
 	<label for="weight">Peso</label>
-	<input type="text" class="form-control spaceFields currency" name="weight" 
-		ng-model="user.weight" ui-number-mask>
+	<input type="number" class="form-control spaceFields" name="weight" step=0.25 
+		ng-model="user.weight" placeholder="0,00" />
 
 </form>	
 	

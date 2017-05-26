@@ -12,6 +12,7 @@ angular.module("userApp").controller("usersCtrl", function ($scope, $rootScope, 
 			
 		}, function errorCallback(response) {
 			$scope.messageError = "Erro de conexão";
+			$location.path("/login");
 		});
 
 	};

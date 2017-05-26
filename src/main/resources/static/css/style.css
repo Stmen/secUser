@@ -16,3 +16,7 @@
     background-color: #ccc;
     cursor: pointer;
 }
+
+.dropdown-menu table {
+  width: 320px;
+}

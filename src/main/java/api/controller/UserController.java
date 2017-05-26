@@ -34,7 +34,7 @@ public class UserController {
 	
  		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
  	    String name2 = auth.getName(); //get logged in username
- 		System.out.println(name2);
+// 		System.out.println(name2);
 	
  	    Iterable<UserDetails> users = new ArrayList<UserDetails>();
 //		String source = request.getHeader("Referer");
@@ -62,7 +62,7 @@ public class UserController {
 	 	try {
 	 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	 	    String name = auth.getName(); //get logged in username
-	 		System.out.println(name);
+//	 		System.out.println(name);
 	 		
 	 		UserDetails user = this.userDetailsService.findByID(idUser);
 	 		if (user.getName() == null){

@@ -1,6 +1,11 @@
 angular.module("userApp").controller("userSelectedCtrl", function ($scope, usersAPI, userSelected, $location) {
 	
-	$scope.app = "User Form";	
+	$scope.dateOptions = {
+		    format: "DD/MM/YYYY",
+		    locale: "pt-br"
+	};
+	
+	$scope.app = "User Edit";	
 	$scope.userSelected = userSelected.data;
 
 	$scope.updateUser = function (userSelected) {

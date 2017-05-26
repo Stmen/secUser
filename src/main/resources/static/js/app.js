@@ -1,1 +1,1 @@
-angular.module("userApp", ["ngMessages", "ngRoute", "ui.utils.masks"]);
+angular.module("userApp", ["ngMessages", "ngRoute", "ui.utils.masks", "ae-datetimepicker"]);

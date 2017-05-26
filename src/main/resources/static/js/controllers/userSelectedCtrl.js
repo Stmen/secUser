@@ -20,5 +20,13 @@ angular.module("userApp").controller("userSelectedCtrl", function ($scope, users
 		});
 		
 	};
+	
+	$scope.deleteUserSelected = function (user) {
+		usersAPI.deleteUser(user.id).then(function (response) {
+			$location.path("/users");
+		}, function errorCallback(response) {
+			$scope.messageError = "Não foi possível remover o usuário ";
+		});;
+	};
 
 });

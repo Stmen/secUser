@@ -20,3 +20,16 @@
 	<span><b>Peso (Kg):</b> <p ng-bind="userSelected.weight | number:2"></p></span>
 	
 </div>
+<div align="left">
+	<button class="btn btn-danger"
+		ng-click="deleteUserSelected(userSelected)" alt="Excluir">
+		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+		Remover
+	</button>
+</div>
+
+<div ng-show="messageError != null" class="alert alert-danger alert-dismissable" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+		<span aria-hidden="true">&times;</span></button>
+		{{messageError}} <strong>:(</strong>
+</div>

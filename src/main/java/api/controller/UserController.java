@@ -22,103 +22,95 @@ import api.service.UserDetailsService;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8")
 	public ResponseEntity<?> getUsers(HttpServletRequest request,
-			@RequestParam(value = "limit", required = false) String limit) {
-	
-// 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-// 	    String name2 = auth.getName(); //get logged in username
-// 		System.out.println(name2);
-	
- 	    Iterable<UserDetails> users = new ArrayList<UserDetails>();
-//		String source = request.getHeader("Referer");
-//		String ip = request.getRemoteAddr();
-	 	try {
-	 		// TODO Paginacao
-	 		if (limit != null){
-//	 			UserDetails userDetails = userDetailsService.findUserByName(name);
-//	 			return new ResponseEntity<UserDetails>(userDetails, HttpStatus.OK);
-	 			
-	 		}else{
-	 			users = this.userDetailsService.getAll();
-	 			
-	 		}
-	 		return new ResponseEntity<Iterable<UserDetails>>(users, HttpStatus.OK);
-	 		
-	 	} catch (Exception e) {
-	 		System.err.println(e.getMessage());
-	 		return new ResponseEntity<Error>(new Error(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-	 	}	 	
+			@RequestParam(value = "page", required = true) Integer page) {
+
+		// 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		// 	    String name2 = auth.getName(); //get logged in username
+		// 		System.out.println(name2);
+
+		Iterable<UserDetails> users = new ArrayList<UserDetails>();
+		//		String source = request.getHeader("Referer");
+		//		String ip = request.getRemoteAddr();
+		try {
+			users = this.userDetailsService.getAll(page);
+			return new ResponseEntity<Iterable<UserDetails>>(users, HttpStatus.OK);
+
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return new ResponseEntity<Error>(new Error(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		}	 	
 	}
-	
+
 	@RequestMapping(value = "/{idUser}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8")
 	public ResponseEntity<?> getUserByID(HttpServletRequest request, 
 			@PathVariable int idUser) {
-	 	try {
-	 		
-	 		UserDetails user = this.userDetailsService.findByID(idUser);
-	 		if (user.getName() == null){
-	 			return new ResponseEntity<Error>(new Error(404, "Usuário não encontrado"), HttpStatus.NOT_FOUND); 
-	 		}
-	 		
-	 		return new ResponseEntity<UserDetails>(user, HttpStatus.OK);
-	 		
-	 	} catch (Exception e) {
-	 		System.err.println(e.getMessage());
-	 		return new ResponseEntity<Error>(new Error(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-	 	} 	
+		try {
+
+			UserDetails user = this.userDetailsService.findByID(idUser);
+			if (user.getName() == null){
+				return new ResponseEntity<Error>(new Error(404, "Usuário não encontrado"), HttpStatus.NOT_FOUND); 
+			}
+
+			return new ResponseEntity<UserDetails>(user, HttpStatus.OK);
+
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return new ResponseEntity<Error>(new Error(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		} 	
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8")
 	public ResponseEntity<?> postUser(HttpServletRequest request, @RequestBody UserDetails userDetails) {
-		
-	 	try {
-	 		
-	 		this.userDetailsService.persistUser(userDetails);
-	 		return new ResponseEntity<String>(HttpStatus.OK);
-	 		
-	 	} catch (Exception e) {
-	 		System.err.println(e.getMessage());
-	 		return new ResponseEntity<Error>(new Error(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-	 	}	 	
+
+		try {
+
+			this.userDetailsService.persistUser(userDetails);
+			return new ResponseEntity<String>(HttpStatus.OK);
+
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return new ResponseEntity<Error>(new Error(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		}	 	
 	}
-	
+
 	@RequestMapping(value = "/{idUser}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8")
 	public ResponseEntity<?> deleteUserByID(HttpServletRequest request, 
 			@PathVariable int idUser) {
-	 	try {
-	 		
-	 		this.userDetailsService.deleteUser(idUser);
-	 		return new ResponseEntity<String>(HttpStatus.OK);
-	 		
-	 	} catch (Exception e) {
-	 		System.err.println(e.getMessage());
-	 		return new ResponseEntity<Error>(new Error(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-	 	} 	
+		try {
+
+			this.userDetailsService.deleteUser(idUser);
+			return new ResponseEntity<String>(HttpStatus.OK);
+
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return new ResponseEntity<Error>(new Error(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		} 	
 	}
-	
+
 	@RequestMapping(value = "/{idUser}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8")
 	public ResponseEntity<?> putUser(HttpServletRequest request, @RequestBody UserDetails userUpdated,
 			@PathVariable int idUser) {
-		
-	 	try {
-	 		
-	 		UserDetails userDetails = this.userDetailsService.findByID(idUser);
-	 		if (userDetails.getName() == null){
-	 			return new ResponseEntity<Error>(new Error(404, "Usuário não encontrado"), HttpStatus.NOT_FOUND); 
-	 		}
 
-	 		this.userDetailsService.persistUser(userUpdated);
-	 		
-	 		return new ResponseEntity<String>(HttpStatus.OK);
-	 		
-	 	} catch (Exception e) {
-	 		System.err.println(e.getMessage());
-	 		return new ResponseEntity<Error>(new Error(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-	 	}	 	
+		try {
+
+			UserDetails userDetails = this.userDetailsService.findByID(idUser);
+			if (userDetails.getName() == null){
+				return new ResponseEntity<Error>(new Error(404, "Usuário não encontrado"), HttpStatus.NOT_FOUND); 
+			}
+
+			this.userDetailsService.persistUser(userUpdated);
+
+			return new ResponseEntity<String>(HttpStatus.OK);
+
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return new ResponseEntity<Error>(new Error(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		}	 	
 	}
 }

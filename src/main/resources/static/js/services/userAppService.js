@@ -2,8 +2,8 @@ angular.module("userApp").factory("usersAPI", function ($http, config){
 
 	var path = "/users";
 
-	var _getUsers = function () {		
-		return $http.get(config.baseUrl+path);
+	var _getUsers = function (page) {		
+		return $http.get(config.baseUrl+path+"?page="+page);
 	};
 
 	var _getUserByID = function (userID) {

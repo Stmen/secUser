@@ -1,6 +1,6 @@
 package api.dao;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import api.model.UserDetails;
@@ -11,6 +11,6 @@ import api.model.UserDetails;
  *
  */
 @Repository
-public interface UserDetailsRepository extends CrudRepository<UserDetails, Integer>{
+public interface UserDetailsRepository extends PagingAndSortingRepository<UserDetails, Integer>{
 	
 }

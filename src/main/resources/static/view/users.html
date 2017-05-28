@@ -94,3 +94,8 @@
 		</tr>
 	</table>
 </div>
+ <ul class="pagination">
+  <li><button class="btn btn-default" ng-disabled="disablebackPagination" ng-click="backPage()">Voltar</button></li>
+  <li class="disabled">{{paging.number+1}} de {{paging.totalPages}}</li>
+  <li><button class="btn btn-default" ng-disabled="disablenextPagination" ng-click="nextPage()">Próximo</button></li>
+</ul> 

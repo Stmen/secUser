@@ -2,14 +2,22 @@ angular.module("userApp").controller("usersCtrl", function ($scope, $rootScope, 
 
 	$scope.app = "User App";
 	$scope.users = [];
+	$scope.paging = {};
 
-	var usersSelected = [];
-
-	var allUsers = function() {
-		usersAPI.getUsers().then(function (response) {
-			$scope.users = response.data;
-			console.log("GET");
-
+	var page = 0;
+	$scope.disablebackPagination = true;
+	$scope.disablenextPagination = false;
+	
+	var allUsers = function(page) {
+		usersAPI.getUsers(page).then(function (response) {
+			$scope.users = response.data.content;
+			$scope.paging.totalPages = response.data.totalPages;
+			$scope.paging.number = response.data.number;
+			// Todos os elementos em uma unica pagina
+			if ($scope.paging.totalPages == 1) {
+				$scope.disablenextPagination = true;
+			}
+			
 		}, function errorCallback(response) {
 			$scope.messageError = "Erro de conexão";
 			$location.path("/login");
@@ -17,45 +25,23 @@ angular.module("userApp").controller("usersCtrl", function ($scope, $rootScope, 
 
 	};
 
-	$scope.deleteUser = function (users) {
-		var usernames = "";
-		$scope.hasUserSelected = false; // Desabilitando o botao Remover
-		for (var i = users.length - 1; i >= 0; i--) {
-
-			if (users[i].selected) {
-				usernames += " '"+ users[i].name +"' ";
-				usersAPI.deleteUser(users[i].id).then(function (response) {
-					console.log("DELETE");
-					$scope.messageSuccess = "Usuário(s): "+ usernames +" removido(s) com";									
-					allUsers(); // refresh dos usuarios
-				});			
-			};
-
-		};
-	};
-
-	$scope.deleteUserSelected = function (user) {
-		usersAPI.deleteUser(user.id).then(function (response) {
-		$scope.messageSuccess = "Usuário: "+ user.name +" removido com";									
-			allUsers(); // refresh dos usuarios
-		}, function errorCallback(response) {
-			$scope.messageError = "Não foi possível remover o usuário ";
-		});;
-	};
-
-	$scope.checkUserSelected = function (user) {
-			// Disparando o evento do click na linha da tabela; CSS:'setSelectUser'
-			user.selected = !user.selected;
-			$scope.hasUserSelected = user.selected;
-
-			// Verifica se algum elemento foi selecionado
-			// $scope.hasUserSelected = users.some(function (user) {			
-			// 	return user.selected;
-			// });
-		};
-
-		allUsers();
-
+	$scope.nextPage = function (){
+		page++;
+		if (page === $scope.paging.totalPages-1) {
+			$scope.disablebackPagination = false;
+			$scope.disablenextPagination = true;
+		}
+		allUsers(page);
+	}
+	
+	$scope.backPage = function (){
+		page--;
+		if (page === 0) {
+			$scope.disablebackPagination = true;
+			$scope.disablenextPagination = false;
+		}
+		allUsers(page);
+	}
 
 	$scope.sair = function() {
 			$http.post('logout', {}).finally(function() {
@@ -63,5 +49,6 @@ angular.module("userApp").controller("usersCtrl", function ($scope, $rootScope, 
 			});
 			$location.path("/");
 		};
-
+	
+	allUsers(0);
 });

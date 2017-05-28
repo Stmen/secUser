@@ -4,6 +4,8 @@
 package api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import api.dao.UserDetailsRepository;
@@ -21,14 +23,16 @@ public class UserDetailsService {
 	
 	@Autowired
 	private UserDetailsRepository userRepository;
-
+	@Value("${number.elements.table}")
+	private String elementsInTable;
+	
 	/**
 	 * Encontra usuário através do nome informado
 	 * @param name do usuário
 	 * @return {@link UserDetails} - objeto que representa o usuário
 	 */
-	public Iterable<UserDetails> getAll(){
-		return this.userRepository.findAll();
+	public Iterable<UserDetails> getAll(Integer page){
+		return this.userRepository.findAll(new PageRequest(page, Integer.parseInt(elementsInTable)));
 	}
 	
 	/**

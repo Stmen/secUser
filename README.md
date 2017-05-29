@@ -1,6 +1,6 @@
 # SecUser
 
-CRUD of users with login to access the paths that it's protected by Spring Security (login by database).
+CRUD of users with login to access the paths that are protected by Spring Security (login by database).
 
 === BACK END ===
 

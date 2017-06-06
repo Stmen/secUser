@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.model.Error;
 import api.model.UserDetails;
-import api.service.UserDetailsService;
+import api.service.UserDetalhesService;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private UserDetalhesService userDetailsService;
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE + "; charset=UTF-8")
 	public ResponseEntity<?> getUsers(HttpServletRequest request,

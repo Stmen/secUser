@@ -11,6 +11,6 @@ import api.model.UserDetails;
  *
  */
 @Repository
-public interface UserDetailsRepository extends PagingAndSortingRepository<UserDetails, Integer>{
+public interface UserDetalhesRepository extends PagingAndSortingRepository<UserDetails, Integer>{
 	
 }

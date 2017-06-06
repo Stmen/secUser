@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
-import api.dao.UserDetailsRepository;
+import api.dao.UserDetalhesRepository;
 import api.model.UserDetails;
 
 
@@ -19,10 +19,10 @@ import api.model.UserDetails;
  *
  */
 @Component
-public class UserDetailsService {
+public class UserDetalhesService {
 	
 	@Autowired
-	private UserDetailsRepository userRepository;
+	private UserDetalhesRepository userRepository;
 	@Value("${number.elements.table}")
 	private String elementsInTable;
 	
